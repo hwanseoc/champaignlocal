@@ -1,6 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
 // styles
 import "assets/css/bootstrap.min.css";
@@ -15,54 +15,35 @@ import DeletePage from "views/users/UsersDeletePage.js";
 
 import StoresPage from "views/stores/StoresPage.js";
 
-import QuestionPage from "views/QuestionsPage.js"
+import QuestionPage from "views/QuestionsPage.js";
 import Main from "views/QuestionPageMain.js";
 import Item from "views/QuestionPageItem.js";
 // others
 
-import { ProvideAuth, RouteWithAuth } from "utils/auth.js"
+import { ProvideAuth, RequireAuth } from "utils/auth.js";
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"));
+root.render(
   <ProvideAuth>
     <Router>
-      <Switch>
+      <Routes>
+        <Route exact path="/" element={<IndexPage />} />
+        <Route path="/users/register" element={<RegisterPage />} />
+        <Route path="/questions" element={<QuestionPage />} />
+        <Route path="/questions/getitems" element={<Main />} />
+        <Route path="/questions/item/:id" element={<Item />} />
+        <Route path="/users/login" element={<LoginPage />} />
         <Route
-          exact path="/"
-          render={(props) => <IndexPage {...props} />}
-        />
-        <Route
-          path="/users/register"
-          render={(props) => <RegisterPage {...props} />}
-          exact path = "/questions"
-          render = {(props) => <QuestionPage {...props} />}
-        />
-        <Route 
-          exact path = "/questions/getitems"
-          render = {(props) => <Main {...props} />}
-        />
-        <Route 
-        path = "/questions/item/:id"
-        render = {(props) => <Item {...props} /> }
-        />
-        <Route
-          path="/users/login"
-          render={(props) => <LoginPage {...props} />}
-        />
-        <RouteWithAuth
           path="/users/update"
-          render={(props) => <UpdatePage {...props} />}
-        />
-        <RouteWithAuth
-          path="/users/delete"
-          render={(props) => <DeletePage {...props} />}
+          element={<RequireAuth><UpdatePage /></RequireAuth>}
         />
         <Route
-          path="/stores"
-          render={(props) => <StoresPage {...props} />}
+          path="/users/delete"
+          element={<RequireAuth><DeletePage /></RequireAuth>}
         />
-        <Redirect to="/" />
-      </Switch>
+        <Route path="/stores" element={<StoresPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </Router>
-  </ProvideAuth>,
-  document.getElementById("root")
+  </ProvideAuth>
 );

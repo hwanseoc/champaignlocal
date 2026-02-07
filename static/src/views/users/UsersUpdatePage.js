@@ -6,7 +6,6 @@ import {
   Form,
   Input,
   InputGroup,
-  InputGroupAddon,
   InputGroupText,
   UncontrolledPopover,
   PopoverBody,
@@ -25,11 +24,11 @@ import storesPageBackground from "assets/img/fabio-mangione.jpg";
 
 // etc
 import { useAuth } from "utils/auth.js";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 function UpdatePage() {
   const auth = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   async function handleUpdateSubmit(event) {
     event.preventDefault();
@@ -56,7 +55,7 @@ function UpdatePage() {
     console.log("Update User");
     console.log(response);
     if (response.ok) {
-      history.push("/");
+      navigate("/");
     }
   };
 
@@ -72,38 +71,30 @@ function UpdatePage() {
               <Form className="contact-form" onSubmit={handleUpdateSubmit}>
                 <label>Display Name</label>
                 <InputGroup>
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="nc-icon nc-single-02" />
-                    </InputGroupText>
-                  </InputGroupAddon>
+                  <InputGroupText>
+                    <i className="nc-icon nc-single-02" />
+                  </InputGroupText>
                   <Input placeholder="Display Name" type="text" name="displayname" />
                 </InputGroup>
                 <label>Username</label>
                 <InputGroup>
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="nc-icon nc-single-02" />
-                    </InputGroupText>
-                  </InputGroupAddon>
+                  <InputGroupText>
+                    <i className="nc-icon nc-single-02" />
+                  </InputGroupText>
                   <Input value={auth.user} type="text" name="username" readOnly/>
                 </InputGroup>
                 <label>Password</label>
                 <InputGroup>
-                  <InputGroupAddon addonType = "prepend">
-                    <InputGroupText>
-                      <i className="nc-icon nc-key-25" />
-                    </InputGroupText>
-                  </InputGroupAddon>
+                  <InputGroupText>
+                    <i className="nc-icon nc-key-25" />
+                  </InputGroupText>
                   <Input placeholder="Password" type="password" name="password"/>
                 </InputGroup>
                 <label>Confirm Password</label>
                 <InputGroup>
-                  <InputGroupAddon addonType = "prepend">
-                    <InputGroupText>
-                      <i className="nc-icon nc-key-25" />
-                    </InputGroupText>
-                  </InputGroupAddon>
+                  <InputGroupText>
+                    <i className="nc-icon nc-key-25" />
+                  </InputGroupText>
                   <Input placeholder="Confirm Password" type="password" name="passwordconfirm"/>
                 </InputGroup>
                 <Button block className="btn-fill" color="danger" size="lg" id="submit">

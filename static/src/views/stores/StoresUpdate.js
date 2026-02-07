@@ -6,7 +6,6 @@ import {
   Form,
   Input,
   InputGroup,
-  InputGroupAddon,
   InputGroupText,
   Container,
   Row,
@@ -20,13 +19,13 @@ function StoresUpdate() {
     event.preventDefault();
     const target = event.target;
     let response;
-    response = await fetch ("api/stores/update", {
+    response = await fetch("/api/stores/update", {
       method: "POST",
       headers: {
         "Content-Type" : "application/json",
       },
       body: JSON.stringify({
-        id: target.updateID.value,
+        id: target.elements.updateID.value,
         name: target.elements.updateName.value,
         location: target.elements.updateLocation.value,
         hours: target.elements.updateHours.value,
@@ -50,22 +49,18 @@ function StoresUpdate() {
                 <Col md="6">
                   <label>Which Store?</label>
                   <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-single-02" />
+                    </InputGroupText>
                     <Input placeholder="Store ID" type="text" name="updateID" />
                   </InputGroup>
                 </Col>
                 <Col md="6">
                   <label>Update Name</label>
                   <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-single-02" />
+                    </InputGroupText>
                     <Input placeholder="Store Name" type="text" name="updateName"/>
                   </InputGroup>
                 </Col>
@@ -74,22 +69,18 @@ function StoresUpdate() {
                 <Col md="6">
                   <label>Update Location</label>
                   <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-email-85" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-email-85" />
+                    </InputGroupText>
                     <Input placeholder="Location" type="text" name="updateLocation" />
                   </InputGroup>
                 </Col>
                 <Col md="6">
                   <label>Update Hours</label>
                   <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-single-02" />
+                    </InputGroupText>
                     <Input placeholder="12:00am-12:00pm" type="text" name="updateHours" />
                   </InputGroup>
                 </Col>
@@ -98,23 +89,19 @@ function StoresUpdate() {
                 <Col md="6">
                   <label>Update Store Owner</label>
                   <InputGroup>
-                    <InputGroupAddon addonType = "prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-single-02" />
+                    </InputGroupText>
                     <Input placeholder="Name" type="text" name="updateOwner" />
                   </InputGroup>
                 </Col>
                 <Col md="6">
                   <label>Update Covid Restrictions</label>
                   <InputGroup>
-                    <InputGroupAddon addonType = "prepend">
                     <InputGroupText>
                       <i className="nc-icon nc-single-02" />
                     </InputGroupText>
-                  </InputGroupAddon>
-                    <Input placeholder = "OPEN, CLOSED, or OPEN(takeout)" type = "text" name="updateCovidRestrictions"/>
+                    <Input placeholder="OPEN, CLOSED, or OPEN(takeout)" type="text" name="updateCovidRestrictions"/>
                   </InputGroup>
                 </Col>
               </Row>

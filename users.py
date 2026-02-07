@@ -1,17 +1,17 @@
-import pymysql
-from pymysql.constants import CLIENT
+import psycopg2
 import os
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from dotenv import load_dotenv
 load_dotenv()
 
 def get_connection():
-    connection = pymysql.connect(
-        host=os.environ.get('SQL_HOST'),
-        user=os.environ.get('SQL_USER'),
-        password=os.environ.get('SQL_PASSWORD'),
-        db=os.environ.get('SQL_DBNAME'),
-        client_flag=CLIENT.MULTI_STATEMENTS
+    connection = psycopg2.connect(
+        host=os.environ.get('PG_HOST'),
+        port=os.environ.get('PG_PORT', '5432'),
+        user=os.environ.get('PG_USER'),
+        password=os.environ.get('PG_PASSWORD'),
+        dbname=os.environ.get('PG_DBNAME'),
     )
     return connection
 
@@ -20,27 +20,31 @@ def check_user(username, password):
     try:
         cursor = connection.cursor()
         query = """
-                SELECT *
-                FROM Users u
-                WHERE u.User_Username = %s AND u.User_Password = %s
+                SELECT User_Password
+                FROM Users
+                WHERE User_Username = %s
                 """
-        cursor.execute(query, (username, password))
-        result = cursor.fetchall()
+        cursor.execute(query, (username,))
+        result = cursor.fetchone()
     finally:
         connection.close()
-    return len(list(result)) >= 1
+    if result is None:
+        return False
+    return check_password_hash(result[0], password)
 
 def create_user(displayname, username, password):
+    hashed = generate_password_hash(password)
     connection = get_connection()
     try:
         cursor = connection.cursor()
         query = """
                 INSERT INTO Users(
                     User_Username, User_Password, User_Displayname
-                ) VALUES (%s, %s, %s);
+                ) VALUES (%s, %s, %s)
+                RETURNING User_ID;
                 """
-        cursor.execute(query, (username, password, displayname))
-        result = cursor.lastrowid
+        cursor.execute(query, (username, hashed, displayname))
+        result = cursor.fetchone()[0]
         connection.commit()
     finally:
         connection.close()
@@ -60,12 +64,13 @@ def update_user(displayname, username, password):
             cursor.execute(query, (displayname, username))
 
         if password:
+            hashed = generate_password_hash(password)
             query = """
                     UPDATE Users
                     SET User_Password = %s
                     WHERE User_Username = %s
                     """
-            cursor.execute(query, (password, username))
+            cursor.execute(query, (hashed, username))
 
         connection.commit()
     finally:
@@ -80,7 +85,7 @@ def delete_user(username):
                 DELETE FROM Users
                 WHERE User_Username = %s
                 """
-        cursor.execute(query, username)
+        cursor.execute(query, (username,))
         connection.commit()
     finally:
         connection.close()

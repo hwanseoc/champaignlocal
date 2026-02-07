@@ -3,26 +3,17 @@ import {Link} from "react-router-dom";
 import DefaultNavbar from "components/DefaultNavbar";
 import QuestionPageHeader from "components/Headers/QuestionsPageHeader";
 
-
 import {
     Card,
     CardBody,
     CardTitle,
     CardText,
-    Button,
-    Input,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    Container,
-    Row,
-    Col,
-  } from "reactstrap";
+} from "reactstrap";
 
 const Main = () => {
     const [items, setItems] = useState([]);
     const getItems = () => {
-        fetch("http://localhost:5000/api/questions/getitems")
+        fetch("/api/questions/getitems")
         .then(res => {
             return res.json();
         }).then(items => {
@@ -39,28 +30,25 @@ const Main = () => {
 
     let itemsArray;
     if(items.length > 0){
-        itemsArray = <div className = "items">
-            {items.map(item => {
+        itemsArray = <div className="items">
+            {items.map((item, index) => {
                 return(
-                <Card style = {{width: "30rem"}}>
+                <Card style={{width: "30rem"}} key={index}>
                     <Link to={"/questions/item/" + item._id}>
                     <CardBody>
                         <CardTitle>{item.Title}</CardTitle>
                         <CardText>Question Content: {item.Content} </CardText>
-                        <CardText>Comments: {item.Comment.map(s => (<li>{s}</li>))}</CardText>
+                        <CardText>Comments: {item.Comment.map((s, i) => (<li key={i}>{s}</li>))}</CardText>
                     </CardBody>
                     </Link>
                 </Card>
                 )
             })}
         </div>
-
-
     } else{
-        itemsArray = <div className = "message">
+        itemsArray = <div className="message">
         <p>No items in database</p>
         </div>
-        
     }
 
     return (

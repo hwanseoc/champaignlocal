@@ -6,7 +6,6 @@ import {
   Form,
   Input,
   InputGroup,
-  InputGroupAddon,
   InputGroupText,
   UncontrolledPopover,
   PopoverBody,
@@ -21,14 +20,14 @@ import DefaultNavbar from "components/DefaultNavbar.js";
 import PageHeaderXS from "components/Headers/PageHeaderXS.js"
 
 import { useAuth } from "utils/auth.js";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 // images
 import storesPageBackground from "assets/img/fabio-mangione.jpg";
 
 function DeletePage() {
   const auth = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   async function handleDeleteSubmit(event) {
     event.preventDefault();
@@ -52,7 +51,7 @@ function DeletePage() {
     console.log(response);
     if (response.ok) {
       auth.logout();
-      history.push("/");
+      navigate("/");
     }
   };
 
@@ -68,20 +67,16 @@ function DeletePage() {
               <Form className="contact-form" onSubmit={handleDeleteSubmit}>
                 <label>Username</label>
                 <InputGroup>
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="nc-icon nc-single-02" />
-                    </InputGroupText>
-                  </InputGroupAddon>
+                  <InputGroupText>
+                    <i className="nc-icon nc-single-02" />
+                  </InputGroupText>
                   <Input placeholder="Username" type="text" name="username"/>
                 </InputGroup>
                 <label>Password</label>
                 <InputGroup>
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="nc-icon nc-key-25" />
-                    </InputGroupText>
-                  </InputGroupAddon>
+                  <InputGroupText>
+                    <i className="nc-icon nc-key-25" />
+                  </InputGroupText>
                   <Input placeholder="Password" type="password" name="password"/>
                 </InputGroup>
                 <Button block className="btn-fill" color="danger" size="lg" id="submit">

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 export const authContext = React.createContext();
 
@@ -13,7 +13,7 @@ export function ProvideAuth({ children }) {
   const [token, setToken] = React.useState(localStorage.getItem('token'));
 
   const register = async (displayname, username, password) => {
-    const response = await fetch( "/api/users/register", {
+    const response = await fetch("/api/users/register", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ export function ProvideAuth({ children }) {
   }
 
   const login = async (username, password) => {
-    const response = await fetch( "/api/users/login", {
+    const response = await fetch("/api/users/login", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -71,12 +71,13 @@ export function ProvideAuth({ children }) {
   );
 }
 
-export function RouteWithAuth({ ...rest }) {
+export function RequireAuth({ children }) {
   const auth = useAuth();
-  return (
-    auth.user ?
-      <Route {...rest} /> :
-      <Redirect to={{ pathname: "/users/login", state: { from: rest.path } }} />
-  );
-}
+  const location = useLocation();
 
+  if (!auth.user) {
+    return <Navigate to="/users/login" state={{ from: location.pathname }} replace />;
+  }
+
+  return children;
+}

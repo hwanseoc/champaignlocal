@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 
@@ -52,7 +52,7 @@ function DefaultNavbar() {
   });
 
   const auth = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   return (
@@ -101,7 +101,7 @@ function DefaultNavbar() {
             </NavItem>
             { !auth.user &&
               <NavItem>
-                <NavLink to={{ pathname: "/users/login", state: {from: location.pathname} }} tag={Link}>
+                <NavLink to="/users/login" state={{from: location.pathname}} tag={Link}>
                   <i className="nc-icon nc-key-25" /> Login
                 </NavLink>
               </NavItem>
@@ -111,11 +111,11 @@ function DefaultNavbar() {
                 <DropdownToggle nav caret>
                   {auth.user}
                 </DropdownToggle>
-                <DropdownMenu className="dropdown-danger" right>
+                <DropdownMenu className="dropdown-danger" end>
                   <DropdownItem href="/users/update">
                   <i className="nc-icon nc-settings-gear-65" /> Account Settings
                   </DropdownItem>
-                  <DropdownItem onClick={()=>{auth.logout(); history.push("/");}}>
+                  <DropdownItem onClick={()=>{auth.logout(); navigate("/");}}>
                     <i className="nc-icon nc-key-25" /> Logout
                   </DropdownItem>
                 </DropdownMenu>

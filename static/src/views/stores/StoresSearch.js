@@ -9,7 +9,6 @@ import {
   Button,
   Input,
   InputGroup,
-  InputGroupAddon,
   InputGroupText,
   Container,
   Row,
@@ -78,11 +77,9 @@ function StoresSearch() {
               </p>
               <br />
               <InputGroup>
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>
-                    <i className="nc-icon nc-zoom-split"></i>
-                  </InputGroupText>
-                </InputGroupAddon>
+                <InputGroupText>
+                  <i className="nc-icon nc-zoom-split"></i>
+                </InputGroupText>
                 <Input
                   type="text"
                   placeholder="Search"
@@ -122,7 +119,6 @@ function StoresSearch() {
                 return (
                   <Card style={{ width: "30rem" }} key={key}>
                     <CardBody>
-                      {/* <CardImg top src={testImage} alt="..." /> */}
                       <CardTitle>{store.name}</CardTitle>
                       <CardText>Store ID: {store.id}</CardText>
                       <CardText>Covid Restrictions: {store.covid_restrictions}</CardText>
@@ -130,15 +126,6 @@ function StoresSearch() {
                       <CardText>Store Location: {store.location}</CardText>
                       <CardText>Store Owner: {store.owner}</CardText>
                       <CardText>ratings: {store.ratings}</CardText>
-                      {/* <Button
-                        style={{
-                          backgroundColor: "navajowhite",
-                          borderColor: "darkslategray",
-                          color: "darkslategray",
-                        }}
-                      >
-                        {store.id}
-                      </Button> */}
                     </CardBody>
                   </Card>
                 )
@@ -152,4 +139,3 @@ function StoresSearch() {
 }
 
 export default StoresSearch;
-

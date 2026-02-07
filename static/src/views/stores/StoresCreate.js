@@ -6,7 +6,6 @@ import {
   Form,
   Input,
   InputGroup,
-  InputGroupAddon,
   InputGroupText,
   Container,
   Row,
@@ -50,22 +49,18 @@ function StoresCreate() {
                 <Col md="6">
                   <label>Store Name</label>
                   <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-single-02" />
+                    </InputGroupText>
                     <Input placeholder="Store Name" type="text" name="createName"/>
                   </InputGroup>
                 </Col>
                 <Col md="6">
                   <label>Store Location</label>
                   <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-email-85" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-email-85" />
+                    </InputGroupText>
                     <Input placeholder="Location" type="text" name="createLocation"/>
                   </InputGroup>
                 </Col>
@@ -74,22 +69,18 @@ function StoresCreate() {
                 <Col md="6">
                   <label>Opening Hours</label>
                   <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-single-02" />
+                    </InputGroupText>
                     <Input placeholder="Open Hours" type="text" name="createHours"/>
                   </InputGroup>
                 </Col>
                 <Col md="6">
                   <label>Store Owner</label>
                   <InputGroup>
-                    <InputGroupAddon addonType = "prepend">
-                      <InputGroupText>
-                        <i className="nc-icon nc-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroupText>
+                      <i className="nc-icon nc-single-02" />
+                    </InputGroupText>
                     <Input placeholder="Owner Name" type="text" name="createOwner"/>
                   </InputGroup>
                 </Col>
@@ -98,12 +89,10 @@ function StoresCreate() {
                 <Col md="6">
                   <label>Covid Restrictions</label>
                   <InputGroup>
-                    <InputGroupAddon addonType = "prepend">
                     <InputGroupText>
                       <i className="nc-icon nc-single-02" />
                     </InputGroupText>
-                  </InputGroupAddon>
-                    <Input placeholder = "OPEN, CLOSED, or OPEN(takeout)" type = "text" name="createCovidRestrictions"/>
+                    <Input placeholder="OPEN, CLOSED, or OPEN(takeout)" type="text" name="createCovidRestrictions"/>
                   </InputGroup>
                 </Col>
               </Row>

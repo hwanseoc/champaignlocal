@@ -6,7 +6,6 @@ import {
   Form,
   Input,
   InputGroup,
-  InputGroupAddon,
   InputGroupText,
   Container,
   Row,
@@ -23,7 +22,7 @@ function StoresDelete() {
     response = await fetch ("/api/stores/delete", {
       method: "POST",
       headers: {
-        "Content-Type" : "application/json", 
+        "Content-Type" : "application/json",
       },
       body: JSON.stringify({
         id: target.elements.deleteid.value
@@ -45,11 +44,9 @@ function StoresDelete() {
           <Col md="6">
           <label>Which Store?</label>
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
             <InputGroupText>
               <i className="nc-icon nc-single-02" />
             </InputGroupText>
-            </InputGroupAddon>
             <Input placeholder="Store ID" type="text" name="deleteid" />
           </InputGroup>
           </Col>

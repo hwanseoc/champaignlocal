@@ -9,14 +9,14 @@ import DefaultNavbar from "components/DefaultNavbar.js";
 // images
 import loginPageBackground from "assets/img/login-image.jpg";
 
-import { useHistory, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "utils/auth.js";
 
 function LoginPage() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const auth = useAuth();
   const location = useLocation();
-  const { from } = location.state || { from: { pathname: "/" } };
+  const from = location.state?.from || "/";
 
   async function handleLoginSubmit(event) {
     event.preventDefault();
@@ -31,7 +31,7 @@ function LoginPage() {
       console.log(e);
     }
     if (success) {
-      history.replace(from);
+      navigate(from, { replace: true });
     }
   }
 
@@ -75,7 +75,7 @@ function LoginPage() {
         </Container>
         <div className="footer register-footer text-center">
           <h6>
-            © {new Date().getFullYear()}, made with{" "}
+            &copy; {new Date().getFullYear()}, made with{" "}
             <i className="fa fa-heart heart" /> by Creative Tim
           </h6>
         </div>
